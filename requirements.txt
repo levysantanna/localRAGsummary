@@ -1,0 +1,49 @@
+# Core RAG dependencies
+langchain==0.1.0
+langchain-community==0.0.10
+chromadb==0.4.22
+sentence-transformers==2.2.2
+transformers==4.36.2
+torch==2.1.2
+torchvision==0.16.2
+
+# Document processing
+pypdf2==3.0.1
+pdfplumber==0.10.3
+Pillow==10.1.0
+pytesseract==0.3.10
+python-docx==1.1.0
+python-pptx==0.6.23
+
+# OCR and image processing
+opencv-python==4.8.1.78
+easyocr==1.7.0
+paddleocr==2.7.3
+PyMuPDF==1.23.8
+
+# Text processing and NLP
+nltk==3.8.1
+spacy==3.7.2
+portuguese-stemmer==0.1.0
+
+# Vector operations
+numpy==1.24.3
+faiss-cpu==1.7.4
+faiss-gpu==1.7.4
+
+# Web interface (optional)
+streamlit==1.28.2
+gradio==4.8.0
+
+# Utilities
+tqdm==4.66.1
+python-dotenv==1.0.0
+pydantic==2.5.0
+tiktoken==0.5.1
+
+# Code analysis
+tree-sitter==0.20.2
+tree-sitter-python==0.20.4
+tree-sitter-javascript==0.20.0
+tree-sitter-java==0.20.2
+tree-sitter-cpp==0.20.0
