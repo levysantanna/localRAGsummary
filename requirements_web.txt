@@ -1,0 +1,11 @@
+# Dependências para a Interface Web do Sistema RAG
+# Interface inspirada no PrivateGPT
+
+# Interface Web
+streamlit>=1.28.0
+plotly>=5.17.0
+pandas>=2.0.0
+
+# Dependências existentes do sistema RAG
+# (instalar requirements.txt primeiro)
+# -r requirements.txt

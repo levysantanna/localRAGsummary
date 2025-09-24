@@ -10,7 +10,7 @@ import hashlib
 from datetime import datetime
 
 # Document processing imports
-import pypdf2
+import PyPDF2 as pypdf2
 import pdfplumber
 from PIL import Image
 import pytesseract
