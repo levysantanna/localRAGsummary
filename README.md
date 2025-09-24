@@ -1,6 +1,6 @@
 # Local RAG System para Documentos Universitários
 
-Sistema de RAG (Retrieval-Augmented Generation) local para processamento e consulta de documentos universitários com suporte completo ao português brasileiro, OCR, análise de código e geração automática de notas em Markdown.
+Sistema de RAG (Retrieval-Augmented Generation) local para processamento e consulta de documentos universitários com suporte completo ao português brasileiro, OCR, análise de código, processamento de vídeos, sistema temático com audiobooks e geração automática de notas em Markdown.
 
 ## 🚀 Características Principais
 
@@ -11,6 +11,10 @@ Sistema de RAG (Retrieval-Augmented Generation) local para processamento e consu
 - **GPU/CPU Compatível**: Funciona em GPUs simples e CPUs modernas
 - **Notas Automáticas**: Geração de notas em Markdown editáveis
 - **Interface Simples**: CLI e API para fácil uso
+- **🎯 Sistema Temático**: Separação automática de resumos por temas com audiobooks
+- **🎥 Processamento de Vídeos**: Scraping e resumo de vídeos de streaming
+- **🎧 Audiobooks**: Geração automática de audiobooks em português
+- **📊 Análise Inteligente**: Classificação temática e agrupamento automático
 
 ## 📋 Requisitos do Sistema
 
@@ -90,18 +94,42 @@ python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk
 
 ```
 localrag/
-├── config.py                 # Configurações do sistema
-├── document_processor.py      # Processamento de documentos
-├── embedding_system.py       # Sistema de embeddings
-├── rag_agent.py             # Agente RAG principal
-├── markdown_generator.py    # Gerador de notas Markdown
-├── main.py                  # Aplicação principal
-├── requirements.txt         # Dependências Python
-├── README.md               # Este arquivo
-├── documents/              # Diretório para documentos (criado automaticamente)
-├── RAGfiles/               # Notas geradas (criado automaticamente)
-├── vector_db/              # Banco de dados vetorial (criado automaticamente)
-└── rag_system.log          # Log do sistema
+├── config.py                      # Configurações do sistema
+├── document_processor.py           # Processamento de documentos
+├── embedding_system.py             # Sistema de embeddings
+├── rag_agent.py                   # Agente RAG principal
+├── markdown_generator.py          # Gerador de notas Markdown
+├── main.py                        # Aplicação principal
+├── requirements.txt               # Dependências Python
+├── requirements_enhanced.txt      # Dependências do sistema aprimorado
+├── README.md                      # Este arquivo
+├── documents/                     # Diretório para documentos (criado automaticamente)
+├── RAGfiles/                      # Notas geradas (criado automaticamente)
+│   ├── temas/                     # Sistema temático
+│   │   ├── inteligencia_artificial/
+│   │   ├── programacao/
+│   │   └── [outros temas...]
+│   └── videos/                     # Sistema de vídeos
+│       ├── downloads/              # Áudios baixados
+│       ├── transcriptions/         # Transcrições
+│       ├── summaries/              # Resumos
+│       └── audiobooks/            # Audiobooks
+├── vector_db/                     # Banco de dados vetorial (criado automaticamente)
+├── processors/                     # Processadores especializados
+│   └── odf_processor.py           # Processador ODF
+├── thematic_analyzer.py           # Analisador temático
+├── audio_generator.py              # Gerador de audiobooks
+├── thematic_summary_generator.py   # Gerador de resumos temáticos
+├── video_processor.py             # Processador de vídeos
+├── enhanced_video_processor.py    # Processador avançado de vídeos
+├── enhanced_rag_system.py         # Sistema RAG aprimorado
+├── enhanced_main.py               # Aplicação principal aprimorada
+├── chat_interface.py              # Interface de chat
+├── run_enhanced_system.py         # Executor do sistema aprimorado
+├── THEMATIC_SYSTEM_DOCS.md        # Documentação do sistema temático
+├── VIDEO_SYSTEM_DOCS.md           # Documentação do sistema de vídeos
+├── ODF_SUPPORT_DEMO.md            # Documentação do suporte ODF
+└── rag_system.log                 # Log do sistema
 ```
 
 ## 🚀 Uso Básico
@@ -184,6 +212,16 @@ python main.py --mode clear
 - Java: `.java`
 - C/C++: `.c`, `.cpp`, `.h`, `.hpp`
 - E muitos outros...
+
+### Vídeos de Streaming
+- **YouTube**: youtube.com, youtu.be
+- **Vimeo**: vimeo.com
+- **Twitch**: twitch.tv
+- **TikTok**: tiktok.com
+- **Dailymotion**: dailymotion.com
+- **Transcrição automática** com Whisper
+- **Resumo automático** de vídeos
+- **Audiobooks** dos resumos
 
 ## 🔧 Configuração Avançada
 
@@ -294,6 +332,68 @@ python main.py --mode query --question "Quais são os dados da planilha de venda
 python main.py --mode query --question "Resuma os pontos principais da apresentação"
 ```
 
+### Exemplo 5: Sistema Temático com Audiobooks
+```bash
+# Processar documentos com análise temática
+python enhanced_main.py --mode process --thematic
+
+# Gerar audiobooks por tema
+python enhanced_main.py --mode audiobooks
+
+# Chat com sistema temático
+python enhanced_main.py --mode chat
+```
+
+### Exemplo 6: Processamento de Vídeos
+```bash
+# Processar documentos com vídeos
+python enhanced_main.py --mode process --videos
+
+# Transcrição e resumo de vídeos
+python enhanced_main.py --mode videos
+
+# Gerar audiobooks de vídeos
+python enhanced_main.py --mode video-audiobooks
+```
+
+## 🎯 Sistema Temático e Audiobooks
+
+### **Funcionalidades Temáticas**
+- **Análise automática** de temas (IA, Programação, Matemática, etc.)
+- **Separação inteligente** de documentos por tema
+- **Resumos temáticos** em Markdown
+- **Audiobooks em português** para cada tema
+- **Estrutura organizacional** por temas
+
+### **Temas Suportados**
+- **Inteligência Artificial**: IA, Machine Learning, Deep Learning
+- **Programação**: Código, Python, JavaScript, Algoritmos
+- **Matemática**: Cálculo, Álgebra, Estatística, Probabilidade
+- **Física**: Mecânica, Termodinâmica, Eletromagnetismo
+- **Química**: Moléculas, Reações, Tabela Periódica
+- **Biologia**: Células, DNA, Genética, Evolução
+- **História**: Passado, Civilizações, Guerras, Revoluções
+- **Literatura**: Livros, Poesia, Autores, Narrativas
+- **Economia**: Mercado, Capital, Investimentos, Finanças
+- **Filosofia**: Ética, Moral, Lógica, Conhecimento
+
+## 🎥 Sistema de Processamento de Vídeos
+
+### **Plataformas Suportadas**
+- **YouTube**: youtube.com, youtu.be
+- **Vimeo**: vimeo.com
+- **Twitch**: twitch.tv
+- **TikTok**: tiktok.com
+- **Dailymotion**: dailymotion.com
+
+### **Funcionalidades de Vídeo**
+- **Detecção automática** de URLs de vídeo
+- **Download de áudio** com yt-dlp
+- **Transcrição com Whisper** em português
+- **Resumo automático** de vídeos
+- **Geração de audiobooks** dos resumos
+- **Agrupamento temático** de vídeos
+
 ## 🐛 Solução de Problemas
 
 ### Problema: Erro de GPU
@@ -366,10 +466,19 @@ pip install -r requirements.txt --upgrade
 
 ## 📚 Recursos Adicionais
 
+### **Documentação do Sistema**
+- [Sistema Temático](THEMATIC_SYSTEM_DOCS.md) - Documentação completa do sistema temático
+- [Sistema de Vídeos](VIDEO_SYSTEM_DOCS.md) - Documentação do processamento de vídeos
+- [Suporte ODF](ODF_SUPPORT_DEMO.md) - Documentação do suporte a LibreOffice
+
+### **Bibliotecas e Frameworks**
 - [Documentação do LangChain](https://python.langchain.com/)
 - [Documentação do ChromaDB](https://docs.trychroma.com/)
 - [Documentação do Sentence Transformers](https://www.sbert.net/)
 - [Tesseract OCR](https://tesseract-ocr.github.io/)
+- [Whisper AI](https://github.com/openai/whisper) - Transcrição de áudio
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - Download de vídeos
+- [pyttsx3](https://pyttsx3.readthedocs.io/) - Síntese de voz
 
 ---
 
