@@ -332,7 +332,7 @@ DEVICE_CONFIG = {'batch_size': 16}
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
+Este projeto está sob a licença GPL-3.0. Veja o arquivo LICENSE para detalhes.
 
 ## 🆘 Suporte
 

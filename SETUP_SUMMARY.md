@@ -226,5 +226,6 @@ python main.py --mode query --question "Qual é a fórmula mencionada?"
 - ✅ Documentação abrangente
 - ✅ Scripts de instalação e exemplo
 - ✅ Configuração flexível
+- ✅ Licenciado sob GPL-3.0
 
 O sistema está pronto para uso em qualquer CPU/GPU moderna e suporta todos os formatos de documento solicitados com processamento inteligente em português brasileiro.
