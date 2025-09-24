@@ -52,3 +52,9 @@ pyttsx3>=2.90
 gtts>=2.3.0
 pygame>=2.5.0
 pydub>=0.25.1
+
+# Video Processing and Transcription
+yt-dlp>=2023.12.30
+openai-whisper>=20231117
+SpeechRecognition>=3.10.0
+pyaudio>=0.2.11
