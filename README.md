@@ -4,7 +4,7 @@ Sistema de RAG (Retrieval-Augmented Generation) local para processamento e consu
 
 ## 🚀 Características Principais
 
-- **Processamento Multimodal**: PDFs, imagens, documentos Word/PowerPoint, arquivos de código
+- **Processamento Multimodal**: PDFs, imagens, documentos Word/PowerPoint, Open Document Format (LibreOffice), arquivos de código
 - **OCR Avançado**: Extração de texto de imagens e PDFs escaneados
 - **Suporte ao Português**: Modelos otimizados para português brasileiro
 - **Análise de Código**: Processamento e análise de arquivos de código
@@ -173,6 +173,11 @@ python main.py --mode clear
 - `.docx`, `.doc` (Word)
 - `.pptx`, `.ppt` (PowerPoint)
 
+### Open Document Format (LibreOffice)
+- `.odt` (LibreOffice Writer)
+- `.ods` (LibreOffice Calc)
+- `.odp` (LibreOffice Impress)
+
 ### Código
 - Python: `.py`
 - JavaScript: `.js`, `.ts`
@@ -277,6 +282,16 @@ python main.py --mode process --directory /home/usuario/notas_escaneadas
 
 # Consultar texto extraído
 python main.py --mode query --question "Qual é a fórmula matemática mencionada?"
+```
+
+### Exemplo 4: Documentos LibreOffice (ODF)
+```bash
+# Processar documentos ODT, ODS, ODP
+python main.py --mode process --directory /home/usuario/documentos_libreoffice
+
+# Consultar conteúdo de planilhas e apresentações
+python main.py --mode query --question "Quais são os dados da planilha de vendas?"
+python main.py --mode query --question "Resuma os pontos principais da apresentação"
 ```
 
 ## 🐛 Solução de Problemas
