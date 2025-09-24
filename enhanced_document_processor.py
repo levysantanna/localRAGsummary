@@ -134,10 +134,18 @@ class EnhancedDocumentProcessor:
         """Processa um documento e extrai URLs para scraping"""
         try:
             # Processar documento normal
-            document = self.document_processor.process_document(str(file_path))
+            document = self.document_processor.process_document(file_path)
             
-            if not document or not document.get('text'):
+            if not document or not document.get('content', {}).get('text'):
                 return document
+            
+            # Converter estrutura do DocumentProcessor para estrutura esperada
+            document = {
+                'text': document['content']['text'],
+                'metadata': document['metadata'],
+                'file_path': document['file_path'],
+                'file_type': document['file_type']
+            }
             
             # Adicionar ID único se não existir
             if 'id' not in document:
