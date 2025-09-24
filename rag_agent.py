@@ -48,7 +48,6 @@ class RAGAgent:
             # Try to load a Portuguese model first
             try:
                 # Try to load a Portuguese-specific model
-            try:
                 self.portuguese_llm = pipeline(
                     "text-generation",
                     model="neuralmind/bert-base-portuguese-cased",
