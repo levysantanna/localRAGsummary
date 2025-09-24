@@ -233,7 +233,35 @@ class EmbeddingSystem:
             ids = [doc['id'] for doc in embedded_docs]
             embeddings = [doc['embedding'].tolist() for doc in embedded_docs]
             documents = [doc['text'] for doc in embedded_docs]
-            metadatas = [doc['metadata'] for doc in embedded_docs]
+            
+            # Flatten metadata for ChromaDB compatibility
+            metadatas = []
+            for doc in embedded_docs:
+                metadata = doc['metadata'].copy()
+                
+                # Debug: print metadata structure
+                logger.info(f"Original metadata: {metadata}")
+                
+                # Ensure metadata is not empty
+                if not metadata:
+                    metadata = {
+                        'word_count': '0',
+                        'character_count': '0',
+                        'language': 'pt'
+                    }
+                
+                # Flatten nested dictionaries and ensure all values are strings
+                filtered_metadata = {}
+                for key, value in metadata.items():
+                    if isinstance(value, dict):
+                        # Skip nested dictionaries
+                        continue
+                    filtered_metadata[key] = str(value)
+                
+                metadata = filtered_metadata
+                
+                logger.info(f"Processed metadata: {metadata}")
+                metadatas.append(metadata)
             
             # Add to collection
             self.collection.add(

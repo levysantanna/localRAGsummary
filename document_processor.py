@@ -417,6 +417,9 @@ class DocumentProcessor:
         except Exception as e:
             logger.error(f"Error processing text file {file_path}: {e}")
         
+        # Post-process the content to add metadata
+        content = self._post_process_content(content, {})
+        
         return content
     
     def _post_process_content(self, content: Dict[str, Any], metadata: Dict[str, Any]) -> Dict[str, Any]:
@@ -437,8 +440,8 @@ class DocumentProcessor:
         
         content['text'] = text.strip()
         
-        # Add word count and other statistics
-        content['statistics'] = {
+        # Add word count and other statistics directly to metadata
+        content['metadata'] = {
             'word_count': len(text.split()),
             'character_count': len(text),
             'language': 'pt'  # Default to Portuguese

@@ -72,7 +72,7 @@ DEVICE_CONFIG = {
 # RAG settings
 RAG_CONFIG = {
     'top_k_results': 5,
-    'similarity_threshold': 0.7,
+    'similarity_threshold': -50.0,  # Ajustado para similaridades negativas
     'max_context_length': 4000,
     'enable_reranking': True,
     'response_language': 'pt'
