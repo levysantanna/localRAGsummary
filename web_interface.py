@@ -413,7 +413,11 @@ Idioma: {language}
             st.code(f"""
 Diretório de Documentos: {config.DOCUMENTS_DIR}
 Diretório RAG: {config.RAGFILES_DIR}
+<<<<<<< HEAD
 Banco de Dados: {config.VECTOR_DB_DIR}
+=======
+Banco de Dados: {config.VECTOR_DB_PATH}
+>>>>>>> 92237b9ecef60a34da5e68c63fc0021431b9a5f2
             """)
         
         with col2:
