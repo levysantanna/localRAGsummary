@@ -20,6 +20,9 @@ import numpy as np
 from docx import Document
 from pptx import Presentation
 
+# ODF processor
+from processors.odf_processor import ODFProcessor
+
 # Code analysis imports
 import tree_sitter
 from tree_sitter import Language, Parser
@@ -45,6 +48,7 @@ class DocumentProcessor:
         self.setup_spacy()
         self.setup_ocr()
         self.setup_code_parsers()
+        self.odf_processor = ODFProcessor()
         
     def setup_nltk(self):
         """Setup NLTK resources"""
@@ -107,6 +111,8 @@ class DocumentProcessor:
                 content = self._process_image(file_path)
             elif file_type == 'document':
                 content = self._process_document_file(file_path)
+            elif file_type == 'odf':
+                content = self._process_odf_file(file_path)
             elif file_type == 'code':
                 content = self._process_code_file(file_path)
             elif file_type == 'text':
@@ -306,6 +312,24 @@ class DocumentProcessor:
             logger.error(f"Error processing document {file_path}: {e}")
         
         return content
+    
+    def _process_odf_file(self, file_path: Path) -> Dict[str, Any]:
+        """Process Open Document Format files (ODT, ODS, ODP)"""
+        try:
+            if self.odf_processor.can_process(str(file_path)):
+                result = self.odf_processor.process_odf_document(str(file_path))
+                return {
+                    'text': result['content']['text'],
+                    'metadata': result['metadata'],
+                    'processing_info': result['processing_info']
+                }
+            else:
+                logger.warning(f"ODF processor cannot handle {file_path}")
+                return {'text': '', 'metadata': {}, 'processing_info': {'error': 'Unsupported ODF format'}}
+        
+        except Exception as e:
+            logger.error(f"Error processing ODF file {file_path}: {e}")
+            return {'text': '', 'metadata': {}, 'processing_info': {'error': str(e)}}
     
     def _process_code_file(self, file_path: Path) -> Dict[str, Any]:
         """Process code files with syntax analysis"""

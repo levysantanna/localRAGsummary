@@ -22,6 +22,7 @@ SUPPORTED_EXTENSIONS = {
     'pdf': ['.pdf'],
     'images': ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff'],
     'documents': ['.docx', '.doc', '.pptx', '.ppt'],
+    'odf': ['.odt', '.ods', '.odp'],  # Open Document Format (LibreOffice)
     'code': ['.py', '.js', '.ts', '.java', '.cpp', '.c', '.h', '.hpp', '.cs', '.php', '.rb', '.go', '.rs', '.swift', '.kt', '.scala', '.r', '.m', '.pl', '.sh', '.sql', '.html', '.css', '.xml', '.json', '.yaml', '.yml']
 }
 
