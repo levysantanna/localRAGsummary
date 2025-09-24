@@ -339,7 +339,7 @@ def main():
             with col2:
                 st.markdown("#### 📈 Progresso")
                 progress_percent = stats['progress_percent']
-                st.progress_bar(progress_percent / 100)
+                st.progress(progress_percent / 100)
                 st.write(f"Progresso: {progress_percent:.1f}%")
             
             # Botão para processar
