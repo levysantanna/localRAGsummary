@@ -7,7 +7,7 @@ from typing import List, Dict, Any
 
 # Base paths
 BASE_DIR = Path(__file__).parent
-DOCUMENTS_DIR = BASE_DIR / "documents"
+DOCUMENTS_DIR = Path("/home/lsantann/Documents/CC/")  # Diretório com os arquivos do curso
 RAGFILES_DIR = BASE_DIR / "RAGfiles"
 VECTOR_DB_DIR = BASE_DIR / "vector_db"
 

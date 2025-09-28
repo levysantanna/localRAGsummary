@@ -95,6 +95,10 @@ def process_single_file(file_path):
         processor = st.session_state['processor']
         status = st.session_state['processing_status']
         
+        # Verificar se o processador foi inicializado corretamente
+        if processor is None:
+            raise Exception("Processador não foi inicializado corretamente")
+        
         # Log de início
         log_entry = {
             'timestamp': datetime.now().strftime('%H:%M:%S'),
@@ -158,6 +162,10 @@ def process_all_files():
     try:
         status = st.session_state['processing_status']
         
+        # Inicializar processador se necessário
+        if st.session_state['processor'] is None:
+            st.session_state['processor'] = EnhancedDocumentProcessor()
+        
         # Resetar status
         status['is_processing'] = True
         status['processed_files'] = []
@@ -173,6 +181,15 @@ def process_all_files():
                 all_files.extend(documents_dir.rglob(f"*{extension}"))
         
         status['total_files'] = len(all_files)
+        
+        # Log de início
+        log_entry = {
+            'timestamp': datetime.now().strftime('%H:%M:%S'),
+            'level': 'INFO',
+            'message': f"🚀 Iniciando processamento de {len(all_files)} arquivos",
+            'module': 'debug_interface'
+        }
+        status['logs'].append(log_entry)
         
         # Processar cada arquivo
         for i, file_path in enumerate(all_files):
@@ -218,34 +235,88 @@ def main():
     
     # Sidebar com controles
     with st.sidebar:
+        st.header("🎛️ Configuração")
+        
+        # Configuração do diretório
+        st.subheader("📁 Diretório dos Arquivos")
+        current_dir = st.text_input(
+            "Diretório dos documentos:", 
+            value=str(config.DOCUMENTS_DIR),
+            help="Caminho para o diretório com os arquivos a serem processados"
+        )
+        
+        # Atualizar configuração se necessário
+        if st.button("🔄 Atualizar Diretório"):
+            config.DOCUMENTS_DIR = Path(current_dir)
+            st.success(f"Diretório atualizado para: {config.DOCUMENTS_DIR}")
+            st.rerun()
+        
+        # Configuração da collection
+        st.subheader("🗄️ Configuração do Banco de Dados")
+        collection_name = st.text_input(
+            "Nome da Collection:",
+            value="university_documents",
+            help="Nome da collection no ChromaDB"
+        )
+        
+        if st.button("🔄 Atualizar Collection"):
+            st.session_state['collection_name'] = collection_name
+            st.success(f"Collection atualizada para: {collection_name}")
+            st.rerun()
+        
+        st.markdown("---")
+        
+        # Controles de processamento
         st.header("🎛️ Controles")
         
-        # Botão para iniciar processamento
-        if st.button("🚀 Processar Todos os Arquivos", type="primary"):
-            if not st.session_state['processing_status']['is_processing']:
-                process_all_files()
-                st.rerun()
-        
-        # Botão para processar arquivo específico
-        st.subheader("📄 Processar Arquivo Específico")
-        documents_dir = Path(config.DOCUMENTS_DIR)
-        if documents_dir.exists():
+        # Verificar se o diretório existe
+        documents_dir = Path(current_dir)
+        if not documents_dir.exists():
+            st.error(f"❌ Diretório não encontrado: {documents_dir}")
+            st.info("💡 Use o botão '🔄 Atualizar Diretório' para aplicar um diretório válido")
+        else:
+            # Contar arquivos
             all_files = []
             for ext in config.SUPPORTED_EXTENSIONS.values():
                 for extension in ext:
                     all_files.extend(documents_dir.rglob(f"*{extension}"))
             
+            st.info(f"📊 Encontrados {len(all_files)} arquivos suportados")
+            
+            # Botão para iniciar processamento - SEMPRE VISÍVEL
+            st.markdown("### 🚀 Processamento")
+            if st.button("🚀 Processar Todos os Arquivos", type="primary", disabled=st.session_state['processing_status']['is_processing']):
+                if not st.session_state['processing_status']['is_processing']:
+                    # Atualizar configuração antes de processar
+                    config.DOCUMENTS_DIR = Path(current_dir)
+                    process_all_files()
+                    st.rerun()
+            
+            # Botão para processar arquivo específico
+            st.subheader("📄 Processar Arquivo Específico")
             if all_files:
                 selected_file = st.selectbox("Selecionar arquivo:", [f.name for f in all_files])
                 if st.button("📄 Processar Arquivo Selecionado"):
                     file_path = next(f for f in all_files if f.name == selected_file)
                     process_single_file(file_path)
                     st.rerun()
+            else:
+                st.warning("Nenhum arquivo encontrado no diretório selecionado")
         
         # Botão para limpar logs
         if st.button("🗑️ Limpar Logs"):
             st.session_state['processing_status']['logs'] = []
             st.rerun()
+        
+        # Botão de emergência - sempre visível
+        st.markdown("---")
+        st.subheader("🚨 Processamento de Emergência")
+        st.info("Use este botão se o diretório não estiver sendo reconhecido")
+        if st.button("🚀 Processar com Diretório Atual", type="secondary"):
+            if not st.session_state['processing_status']['is_processing']:
+                # Usar o diretório atual da configuração
+                process_all_files()
+                st.rerun()
         
         # Estatísticas
         st.header("📊 Estatísticas")
